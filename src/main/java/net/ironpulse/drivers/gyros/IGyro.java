@@ -1,0 +1,16 @@
+package net.ironpulse.drivers.gyros;
+
+import edu.wpi.first.math.geometry.Rotation2d;
+
+import java.util.List;
+
+public interface IGyro {
+    Rotation2d getYaw();
+    Rotation2d getPitch();
+    Rotation2d getRoll();
+    double[] getRaw();
+
+    void setYaw(double angle);
+    void setPitch(double angle);
+    void setRoll(double angle);
+}
