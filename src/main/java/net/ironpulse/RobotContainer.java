@@ -5,6 +5,8 @@
 
 package net.ironpulse;
 
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import net.ironpulse.Constants.OperatorConstants;
 import net.ironpulse.commands.Autos;
 import net.ironpulse.commands.ExampleCommand;
@@ -28,17 +30,29 @@ public class RobotContainer
     private final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
     private final SwerveSubsystem swerveSubsystem =
             new SwerveSubsystem(new Pigeon2Gyro(Constants.SensorConstants.GYRO_PORT));
-    
-    // Replace with CommandPS4Controller or CommandJoystick if needed
+
     private final CommandXboxController driverController =
             new CommandXboxController(OperatorConstants.DRIVER_CONTROLLER_PORT);
     
     
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
-    public RobotContainer()
-    {
+    public RobotContainer() {
         // Configure the trigger bindings
         configureBindings();
+
+        swerveSubsystem.setDefaultCommand(
+                new RunCommand(
+                        () -> swerveSubsystem.drive(
+                                new Translation2d(
+                                        driverController.getLeftY() * Constants.SwerveConstants.MAX_SPEED,
+                                        driverController.getLeftX() * Constants.SwerveConstants.MAX_SPEED
+                                ),
+                                driverController.getRightX() * Constants.SwerveConstants.MAX_SPEED,
+                                false
+                        ),
+                        swerveSubsystem
+                )
+        );
     }
     
     

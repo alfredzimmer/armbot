@@ -17,6 +17,10 @@ public interface ISwerveModule {
      */
     SwerveModulePosition getPosition();
 
+    SwerveModuleState getState();
+
+    int getModuleNumber();
+
     /**
      * Reset the swerve module
      */

@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 @Builder
 public class SwerveModuleConfiguration {
+    private int moduleNumber;
+
     private int angleMotorChannel;
     private int driveMotorChannel;
 

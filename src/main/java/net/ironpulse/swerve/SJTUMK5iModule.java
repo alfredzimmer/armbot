@@ -1,13 +1,13 @@
 package net.ironpulse.swerve;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.BaseTalon;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import net.ironpulse.Constants;
+import net.ironpulse.maths.AngleNormalization;
 import net.ironpulse.maths.Conversions;
 import net.ironpulse.models.SwerveModuleConfiguration;
 
@@ -17,8 +17,11 @@ public class SJTUMK5iModule implements ISwerveModule {
 
     private final TalonFX driveMotor;
 
+    private final int moduleNumber;
+
     public SJTUMK5iModule(SwerveModuleConfiguration config) {
         driveMotor = CTREFactory.createDefaultTalonFX(config.getDriveMotorChannel(), true);
+        this.moduleNumber = config.getModuleNumber();
         driveMotor.config_kP(0, config.getKP());
         driveMotor.config_kI(0, config.getKI());
         driveMotor.config_kD(0, config.getKD());
@@ -52,6 +55,19 @@ public class SJTUMK5iModule implements ISwerveModule {
     }
 
     @Override
+    public SwerveModuleState getState() {
+        var velocity = Conversions.falconToMPS(driveMotor.getSelectedSensorVelocity(),
+                Constants.SwerveConstants.WHEEL_CIRCUMFERENCE_METERS, Constants.SwerveConstants.DRIVE_GEAR_RATIO);
+        var angle = getEncoderAngle();
+        return new SwerveModuleState(velocity, angle);
+    }
+
+    @Override
+    public int getModuleNumber() {
+        return moduleNumber;
+    }
+
+    @Override
     public void reset() {
         driveMotor.set(ControlMode.Velocity, 0);
         angleMotor.setSelectedSensorPosition(0);
@@ -66,5 +82,10 @@ public class SJTUMK5iModule implements ISwerveModule {
     private Rotation2d getEncoderAngleUnbound() {
         return Rotation2d.fromDegrees(
                 Conversions.falconToDegrees(angleMotor.getSelectedSensorPosition(), 1.0));
+    }
+
+    private Rotation2d getEncoderAngle() {
+        return Rotation2d.fromDegrees(
+                AngleNormalization.getAbsoluteAngleDegree(getEncoderAngleUnbound().getDegrees()));
     }
 }

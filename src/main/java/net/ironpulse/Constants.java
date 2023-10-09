@@ -25,6 +25,7 @@ public final class Constants {
         public static final int DRIVE_GEAR_RATIO = 0;
 
         public static final SwerveDriveKinematics SWERVE_DRIVE_KINEMATICS = new SwerveDriveKinematics();
+        public static final double MAX_SPEED = 1;
     }
 
     public static class SensorConstants {
