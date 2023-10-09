@@ -1,4 +1,4 @@
-package net.ironpulse.swerve;
+package net.ironpulse.drivers.swerve;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;

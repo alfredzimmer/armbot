@@ -1,4 +1,4 @@
-package net.ironpulse.swerve;
+package net.ironpulse.drivers.swerve;
 
 import com.ctre.phoenix.ParamEnum;
 import com.ctre.phoenix.motorcontrol.*;

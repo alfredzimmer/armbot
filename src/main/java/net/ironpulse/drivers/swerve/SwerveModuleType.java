@@ -1,4 +1,4 @@
-package net.ironpulse.swerve;
+package net.ironpulse.drivers.swerve;
 
 public enum SwerveModuleType {
     SJTUMK5I

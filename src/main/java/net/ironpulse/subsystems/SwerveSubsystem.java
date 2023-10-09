@@ -6,9 +6,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import net.ironpulse.Constants;
 import net.ironpulse.drivers.gyros.IGyro;
 import net.ironpulse.models.SwerveModuleConfiguration;
-import net.ironpulse.swerve.ISwerveModule;
-import net.ironpulse.swerve.SwerveModuleFactory;
-import net.ironpulse.swerve.SwerveModuleType;
+import net.ironpulse.drivers.swerve.ISwerveModule;
+import net.ironpulse.drivers.swerve.SwerveModuleFactory;
+import net.ironpulse.drivers.swerve.SwerveModuleType;
 
 import java.util.List;
 

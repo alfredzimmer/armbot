@@ -1,4 +1,4 @@
-package net.ironpulse.swerve;
+package net.ironpulse.drivers.swerve;
 
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
