@@ -1,24 +1,14 @@
 package net.ironpulse.drivers.swerve;
 
-import com.ctre.phoenix.ParamEnum;
-import com.ctre.phoenix.motorcontrol.*;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import net.ironpulse.drivers.LazyTalonSRX;
+import com.ctre.phoenix.motorcontrol.can.BaseTalon;
+
+import java.util.function.Function;
 
 public class CTREFactory {
-
-    public static TalonFX createDefaultTalonFX(int id, boolean isOnCanivore) {
-        var talon = new TalonFX(id, isOnCanivore ? "canivore" : "");
-        talon.configFactoryDefault();
-
-        return talon;
+    public static BaseTalon createDefaultTalon(int id, TalonType type) {
+        return type.getConstructor().apply(id);
     }
-
-    public static TalonSRX createDefaultTalonSRX(int id) {
-        TalonSRX talon = new LazyTalonSRX(id);
-        talon.configFactoryDefault();
-
-        return talon;
+    public static BaseTalon createTalon(int id, TalonType type, Function<BaseTalon, BaseTalon> config) {
+        return config.apply(type.getConstructor().apply(id));
     }
 }

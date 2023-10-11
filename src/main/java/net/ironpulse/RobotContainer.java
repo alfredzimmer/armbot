@@ -24,8 +24,7 @@ import net.ironpulse.subsystems.SwerveSubsystem;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
-public class RobotContainer
-{
+public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
     private final SwerveSubsystem swerveSubsystem =
@@ -65,8 +64,7 @@ public class RobotContainer
      * PS4} controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
      * joysticks}.
      */
-    private void configureBindings()
-    {
+    private void configureBindings() {
         // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
         new Trigger(exampleSubsystem::exampleCondition)
                 .onTrue(new ExampleCommand(exampleSubsystem));
@@ -82,8 +80,7 @@ public class RobotContainer
      *
      * @return the command to run in autonomous
      */
-    public Command getAutonomousCommand()
-    {
+    public Command getAutonomousCommand() {
         // An example command will be run in autonomous
         return Autos.exampleAuto(exampleSubsystem);
     }

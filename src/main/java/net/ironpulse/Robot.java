@@ -17,8 +17,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot
-{
+public class Robot extends TimedRobot {
     private Command autonomousCommand;
     
     private RobotContainer robotContainer;
@@ -29,8 +28,7 @@ public class Robot extends TimedRobot
      * initialization code.
      */
     @Override
-    public void robotInit()
-    {
+    public void robotInit() {
         // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
         // autonomous chooser on the dashboard.
         robotContainer = new RobotContainer();
@@ -45,8 +43,7 @@ public class Robot extends TimedRobot
      * SmartDashboard integrated updating.
      */
     @Override
-    public void robotPeriodic()
-    {
+    public void robotPeriodic() {
         // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
         // commands, running already-scheduled commands, removing finished or interrupted commands,
         // and running subsystem periodic() methods.  This must be called from the robot's periodic
@@ -66,13 +63,11 @@ public class Robot extends TimedRobot
     
     /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
     @Override
-    public void autonomousInit()
-    {
+    public void autonomousInit() {
         autonomousCommand = robotContainer.getAutonomousCommand();
         
         // schedule the autonomous command (example)
-        if (autonomousCommand != null)
-        {
+        if (autonomousCommand != null) {
             autonomousCommand.schedule();
         }
     }

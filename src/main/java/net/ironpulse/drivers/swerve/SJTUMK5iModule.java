@@ -20,13 +20,28 @@ public class SJTUMK5iModule implements ISwerveModule {
     private final int moduleNumber;
 
     public SJTUMK5iModule(SwerveModuleConfiguration config) {
-        driveMotor = CTREFactory.createDefaultTalonFX(config.getDriveMotorChannel(), true);
+        driveMotor = (TalonFX) CTREFactory.createTalon(
+                config.getDriveMotorChannel(),
+                TalonType.FX,
+                talon -> {
+                    talon.config_kP(0, config.getKP());
+                    talon.config_kI(0, config.getKI());
+                    talon.config_kD(0, config.getKD());
+                    return talon;
+                }
+        );
         this.moduleNumber = config.getModuleNumber();
-        driveMotor.config_kP(0, config.getKP());
-        driveMotor.config_kI(0, config.getKI());
-        driveMotor.config_kD(0, config.getKD());
 
-        angleMotor = CTREFactory.createDefaultTalonSRX(config.getAngleMotorChannel());
+        angleMotor = (TalonSRX) CTREFactory.createTalon(
+                config.getAngleMotorChannel(),
+                TalonType.SRX,
+                talon -> {
+                    talon.config_kP(0, config.getKP());
+                    talon.config_kI(0, config.getKI());
+                    talon.config_kD(0, config.getKD());
+                    return talon;
+                }
+        );
         angleMotor.config_kP(0, config.getKP());
         angleMotor.config_kI(0, config.getKI());
         angleMotor.config_kD(0, config.getKD());
