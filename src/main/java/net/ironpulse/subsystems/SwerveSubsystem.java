@@ -5,10 +5,10 @@ import edu.wpi.first.math.kinematics.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import net.ironpulse.Constants;
 import net.ironpulse.drivers.gyros.IGyro;
-import net.ironpulse.models.SwerveModuleConfiguration;
 import net.ironpulse.drivers.swerve.ISwerveModule;
 import net.ironpulse.drivers.swerve.SwerveModuleFactory;
 import net.ironpulse.drivers.swerve.SwerveModuleType;
+import net.ironpulse.models.SwerveModuleConfiguration;
 
 import java.util.List;
 
@@ -60,7 +60,7 @@ public class SwerveSubsystem extends SubsystemBase {
                         new ChassisSpeeds(translation.getX(), translation.getY(), rotation)
         );
         SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, Constants.SwerveConstants.MAX_SPEED);
-        for (ISwerveModule module : swerveModules) {
+        for (var module : swerveModules) {
             module.setDesiredState(swerveModuleStates[module.getModuleNumber()]);
         }
     }
@@ -70,7 +70,7 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     public SwerveModuleState[] getStates() {
-        SwerveModuleState[] states = new SwerveModuleState[4];
+        var states = new SwerveModuleState[4];
         for (ISwerveModule module : swerveModules) {
             states[module.getModuleNumber()] = module.getState();
         }

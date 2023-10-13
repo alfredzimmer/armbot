@@ -42,9 +42,6 @@ public class SJTUMK5iModule implements ISwerveModule {
                     return talon;
                 }
         );
-        angleMotor.config_kP(0, config.getKP());
-        angleMotor.config_kI(0, config.getKI());
-        angleMotor.config_kD(0, config.getKD());
     }
 
     @Override

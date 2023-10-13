@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import net.ironpulse.models.SwerveModuleConfiguration;
 
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 @Getter
 @RequiredArgsConstructor

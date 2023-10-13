@@ -3,10 +3,6 @@ package net.ironpulse.drivers.gyros;
 import com.ctre.phoenix.sensors.Pigeon2;
 import edu.wpi.first.math.geometry.Rotation2d;
 import lombok.Setter;
-import net.ironpulse.drivers.gyros.IGyro;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Pigeon2Gyro implements IGyro {
     private final Pigeon2 gyro;
