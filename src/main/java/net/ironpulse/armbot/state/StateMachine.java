@@ -1,7 +1,9 @@
 package net.ironpulse.armbot.state;
 
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +45,7 @@ import java.util.Optional;
 public class StateMachine {
     private final List<Transition> transitions;
 
+    @Getter
     private Enum<?> currentState;
 
     public StateMachine(Enum<?> initialState, net.ironpulse.armbot.state.Transition... transitions) {
@@ -62,7 +65,6 @@ public class StateMachine {
                                 && saTransition.getCurrentState().equals(currentState))
                 .findFirst();
         if (transition.isEmpty()) return;
-
         currentState = transition.get().getNextState();
         Optional.ofNullable(transition.get().getCommand())
                 .ifPresent(command ->
