@@ -1,13 +1,15 @@
-package net.ironpulse.armbot.state;
+package net.ironpulse.armbot.test.state;
 
 
+import net.ironpulse.armbot.state.StateMachine;
+import net.ironpulse.armbot.state.Transition;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class StateTest {
+public class StateMachineTest {
     private enum State {
         START, GOAL1, GOAL2
     };

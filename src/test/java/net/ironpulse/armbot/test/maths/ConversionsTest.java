@@ -1,4 +1,4 @@
-package net.ironpulse.armbot.maths;
+package net.ironpulse.armbot.test.maths;
 
 import org.junit.jupiter.api.Test;
 
