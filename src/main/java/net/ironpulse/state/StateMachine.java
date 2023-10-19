@@ -1,46 +1,31 @@
 package net.ironpulse.state;
 
-import lombok.Getter;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class StateMachine<T extends Enum<T>> {
-    private final List<StateTransition<T>> transitions = new ArrayList<>();
-    private final List<Value<?>> values = new ArrayList<>();
+public class StateMachine {
+    private final List<Transition> transitions;
 
-    @Getter
-    private T currentState;
+    private Enum<?> currentState;
 
-    public StateTransition<T> transition() {
-        StateTransition<T> transition = StateTransition.builder();
-        transitions.add(transition);
-        return transition;
+    public StateMachine(Enum<?> initialState, Transition... transitions) {
+        currentState = initialState;
+        this.transitions = List.of(transitions);
     }
 
-    public <E> void setValue(String name, E value) {
-        values.add(Value
-                .builder()
-                .name(name)
-                .value(value)
-                .build());
-    }
+    public void transfer(Enum<?> action) {
+        var transition = transitions
+                .stream()
+                .filter(saTransition ->
+                        saTransition.getAction().equals(action)
+                                && saTransition.getCurrentState().equals(currentState))
+                .findFirst();
+        if (transition.isEmpty()) return;
 
-    public void update() {
-        for (var value : values) {
-            var transition = transitions
-                    .stream()
-                    .filter(x -> x.getCondition().getName().equals(value.getName()))
-                    .findFirst();
-            if (transition.isEmpty()) break;
-            if (!transition
-                    .get()
-                    .getCondition()
-                    .getPredicate()
-                    .test(value.getValue())) {
-                break;
-            }
-            currentState = transition.get().getNextState();
-        }
+        currentState = transition.get().getNextState();
+        CommandScheduler
+                .getInstance()
+                .schedule(transition.get().getCommand());
     }
 }
