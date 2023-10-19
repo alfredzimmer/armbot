@@ -10,8 +10,11 @@ import net.ironpulse.drivers.swerve.SwerveModuleFactory;
 import net.ironpulse.drivers.swerve.SwerveModuleType;
 import net.ironpulse.looper.IUpdatable;
 import net.ironpulse.models.SwerveModuleConfiguration;
+import net.ironpulse.state.Condition;
+import net.ironpulse.state.StateMachine;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class SwerveSubsystem extends SubsystemBase implements IUpdatable {
     private final List<ISwerveModule> swerveModules = List.of(
@@ -35,6 +38,8 @@ public class SwerveSubsystem extends SubsystemBase implements IUpdatable {
 
     private final SwerveDriveOdometry swerveDriveOdometry;
 
+    private final StateMachine<MyState> stateMachine = new StateMachine<>();
+
     public SwerveSubsystem(IGyro gyro) {
         this.gyro = gyro;
         swerveDriveOdometry = new SwerveDriveOdometry(
@@ -45,6 +50,22 @@ public class SwerveSubsystem extends SubsystemBase implements IUpdatable {
                         swerveModules.get(1).getPosition(),
                 }
         );
+        stateMachine
+                .transition()
+                .currentState(MyState.RUNNING)
+                .nextState(MyState.WALKING)
+                .condition(
+                        Condition
+                                .<Integer>builder()
+                                .name("abc")
+                                .predicate(x -> x > 10)
+                                .build()
+                )
+                .build();
+    }
+
+    enum MyState {
+        RUNNING, WALKING
     }
 
     public void drive(Translation2d translation, double rotation, boolean fieldRelative) {
