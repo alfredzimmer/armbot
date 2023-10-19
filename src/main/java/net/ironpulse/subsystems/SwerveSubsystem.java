@@ -8,11 +8,12 @@ import net.ironpulse.drivers.gyros.IGyro;
 import net.ironpulse.drivers.swerve.ISwerveModule;
 import net.ironpulse.drivers.swerve.SwerveModuleFactory;
 import net.ironpulse.drivers.swerve.SwerveModuleType;
+import net.ironpulse.looper.IUpdatable;
 import net.ironpulse.models.SwerveModuleConfiguration;
 
 import java.util.List;
 
-public class SwerveSubsystem extends SubsystemBase {
+public class SwerveSubsystem extends SubsystemBase implements IUpdatable {
     private final List<ISwerveModule> swerveModules = List.of(
             SwerveModuleFactory.createSwerveModule(
                     SwerveModuleType.SJTUMK5I,
@@ -70,15 +71,15 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     public SwerveModuleState[] getStates() {
-        var states = new SwerveModuleState[4];
+        var states = new SwerveModuleState[swerveModules.size()];
         for (ISwerveModule module : swerveModules) {
             states[module.getModuleNumber()] = module.getState();
         }
         return states;
-  }
+    }
 
     @Override
-    public void periodic() {
+    public void update(double time, double deltaTime) {
         swerveDriveOdometry.update(
                 gyro.getYaw(),
                 new SwerveModulePosition[] {

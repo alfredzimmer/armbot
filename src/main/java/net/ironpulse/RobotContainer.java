@@ -7,15 +7,19 @@ package net.ironpulse;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import lombok.Getter;
 import net.ironpulse.Constants.OperatorConstants;
 import net.ironpulse.commands.Autos;
 import net.ironpulse.commands.ExampleCommand;
 import net.ironpulse.drivers.gyros.Pigeon2Gyro;
+import net.ironpulse.looper.UpdateManager;
 import net.ironpulse.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import net.ironpulse.subsystems.SwerveSubsystem;
+
+import java.util.List;
 
 
 /**
@@ -32,6 +36,11 @@ public class RobotContainer {
 
     private final CommandXboxController driverController =
             new CommandXboxController(OperatorConstants.DRIVER_CONTROLLER_PORT);
+
+    @Getter
+    private final UpdateManager updateManager = new UpdateManager(
+        swerveSubsystem
+    );
     
     
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
