@@ -11,22 +11,34 @@ import net.ironpulse.armbot.drivers.swerve.SwerveModuleType;
 import net.ironpulse.armbot.looper.IUpdatable;
 import net.ironpulse.armbot.models.SwerveModuleConfiguration;
 
+import static net.ironpulse.armbot.Constants.*;
+
 import java.util.List;
 
 public class SwerveSubsystem extends SubsystemBase implements IUpdatable {
     private final List<ISwerveModule> swerveModules = List.of(
             SwerveModuleFactory.createSwerveModule(
-                    SwerveModuleType.SJTUMK5I,
-                    SwerveModuleConfiguration.builder()
-                            .angleMotorChannel(0)
-                            .driveMotorChannel(1)
+                    SwerveModuleType.SJTUMK5,
+                    SwerveModuleConfiguration
+                            .builder()
+                            .moduleNumber(0)
+                            .angleMotorChannel(SwerveConstants.FRONT_LEFT_ANGLE_MOTOR_PORT)
+                            .driveMotorChannel(SwerveConstants.FRONT_LEFT_DRIVE_MOTOR_PORT)
+                            .kP(0.5)
+                            .kI(0)
+                            .kD(0)
                             .build()
             ),
             SwerveModuleFactory.createSwerveModule(
-                    SwerveModuleType.SJTUMK5I,
-                    SwerveModuleConfiguration.builder()
-                            .angleMotorChannel(0)
-                            .driveMotorChannel(1)
+                    SwerveModuleType.SJTUMK5,
+                    SwerveModuleConfiguration
+                            .builder()
+                            .moduleNumber(1)
+                            .angleMotorChannel(SwerveConstants.REAR_RIGHT_ANGLE_MOTOR_PORT)
+                            .driveMotorChannel(SwerveConstants.REAR_RIGHT_DRIVE_MOTOR_PORT)
+                            .kP(0.5)
+                            .kI(0)
+                            .kD(0)
                             .build()
             )
     );
@@ -38,7 +50,7 @@ public class SwerveSubsystem extends SubsystemBase implements IUpdatable {
     public SwerveSubsystem(IGyro gyro) {
         this.gyro = gyro;
         swerveDriveOdometry = new SwerveDriveOdometry(
-                Constants.SwerveConstants.SWERVE_DRIVE_KINEMATICS,
+                SwerveConstants.SWERVE_DRIVE_KINEMATICS,
                 gyro.getYaw(),
                 new SwerveModulePosition[]{
                         swerveModules.get(0).getPosition(),
@@ -72,7 +84,7 @@ public class SwerveSubsystem extends SubsystemBase implements IUpdatable {
 
     public SwerveModuleState[] getStates() {
         var states = new SwerveModuleState[swerveModules.size()];
-        for (ISwerveModule module : swerveModules) {
+        for (var module : swerveModules) {
             states[module.getModuleNumber()] = module.getState();
         }
         return states;

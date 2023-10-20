@@ -11,7 +11,7 @@ import net.ironpulse.armbot.maths.AngleNormalization;
 import net.ironpulse.armbot.maths.Conversions;
 import net.ironpulse.armbot.models.SwerveModuleConfiguration;
 
-public class SJTUMK5iModule implements ISwerveModule {
+public class SJTUMK5Module implements ISwerveModule {
 
     private final TalonSRX angleMotor;
 
@@ -19,7 +19,7 @@ public class SJTUMK5iModule implements ISwerveModule {
 
     private final int moduleNumber;
 
-    public SJTUMK5iModule(SwerveModuleConfiguration config) {
+    public SJTUMK5Module(SwerveModuleConfiguration config) {
         driveMotor = (TalonFX) CTREFactory.createTalon(
                 config.getDriveMotorChannel(),
                 TalonType.FX,
@@ -35,12 +35,7 @@ public class SJTUMK5iModule implements ISwerveModule {
         angleMotor = (TalonSRX) CTREFactory.createTalon(
                 config.getAngleMotorChannel(),
                 TalonType.SRX,
-                talon -> {
-                    talon.config_kP(0, config.getKP());
-                    talon.config_kI(0, config.getKI());
-                    talon.config_kD(0, config.getKD());
-                    return talon;
-                }
+                talon -> talon
         );
     }
 
