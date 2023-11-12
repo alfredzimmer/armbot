@@ -52,12 +52,18 @@ public class StateMachineTest {
 
     @Test
     void testTransfer2() {
+        stateMachine.transfer(Action.BACK_TO_START);
+        assertEquals(State.GOAL1, stateMachine.getCurrentState());
+    }
+
+    @Test
+    void testTransfer3() {
         stateMachine.transfer(Action.DO_GOAL2);
         assertEquals(State.GOAL2, stateMachine.getCurrentState());
     }
 
     @Test
-    void testTransfer3() {
+    void testTransfer4() {
         stateMachine.transfer(Action.BACK_TO_START);
         assertEquals(State.START, stateMachine.getCurrentState());
     }

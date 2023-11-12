@@ -32,10 +32,9 @@ public class SJTUMK5Module implements ISwerveModule {
         );
         this.moduleNumber = config.getModuleNumber();
 
-        angleMotor = (TalonSRX) CTREFactory.createTalon(
+        angleMotor = (TalonSRX) CTREFactory.createDefaultTalon(
                 config.getAngleMotorChannel(),
-                TalonType.SRX,
-                talon -> talon
+                TalonType.SRX
         );
     }
 

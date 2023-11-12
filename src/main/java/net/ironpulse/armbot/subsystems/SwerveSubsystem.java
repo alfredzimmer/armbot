@@ -4,6 +4,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import net.ironpulse.armbot.Constants;
+import net.ironpulse.armbot.dashboard.ShuffleBoardRegister;
 import net.ironpulse.armbot.drivers.gyros.IGyro;
 import net.ironpulse.armbot.drivers.swerve.ISwerveModule;
 import net.ironpulse.armbot.drivers.swerve.SwerveModuleFactory;
@@ -11,9 +12,9 @@ import net.ironpulse.armbot.drivers.swerve.SwerveModuleType;
 import net.ironpulse.armbot.looper.IUpdatable;
 import net.ironpulse.armbot.models.SwerveModuleConfiguration;
 
-import static net.ironpulse.armbot.Constants.*;
-
 import java.util.List;
+
+import static net.ironpulse.armbot.Constants.SwerveConstants;
 
 public class SwerveSubsystem extends SubsystemBase implements IUpdatable {
     private final List<ISwerveModule> swerveModules = List.of(
@@ -57,6 +58,18 @@ public class SwerveSubsystem extends SubsystemBase implements IUpdatable {
                         swerveModules.get(1).getPosition(),
                 }
         );
+        for (var swerveModule : swerveModules) {
+            ShuffleBoardRegister.getInstance().addEntry(
+                    "Swerve",
+                    String.format("Swerve Module #%d Speed", swerveModule.getModuleNumber()),
+                    () -> swerveModule.getState().speedMetersPerSecond
+            );
+            ShuffleBoardRegister.getInstance().addEntry(
+                    "Swerve",
+                    String.format("Swerve Module #%d Angle", swerveModule.getModuleNumber()),
+                    () -> swerveModule.getState().angle
+            );
+        }
     }
 
     public void drive(Translation2d translation, double rotation, boolean fieldRelative) {
