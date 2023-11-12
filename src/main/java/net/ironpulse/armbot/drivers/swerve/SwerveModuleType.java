@@ -9,7 +9,7 @@ import java.util.function.Function;
 @Getter
 @RequiredArgsConstructor
 public enum SwerveModuleType {
-    SJTUMK5I(SJTUMK5iModule::new);
+    SJTUMK5(SJTUMK5Module::new);
 
     private final Function<SwerveModuleConfiguration, ISwerveModule> constructor;
 }

@@ -1,5 +1,7 @@
-package net.ironpulse.armbot.maths;
+package net.ironpulse.armbot.test.maths;
 
+import net.ironpulse.armbot.maths.AngleNormalization;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AngleNormalizationTest {
     @Test
     void absoluteAngleDegreeTest() {
-        assertEquals(0, AngleNormalization.getAbsoluteAngleDegree(720));
+        Assertions.assertEquals(0, AngleNormalization.getAbsoluteAngleDegree(720));
         assertEquals(20, AngleNormalization.getAbsoluteAngleDegree(20));
         assertEquals(70, AngleNormalization.getAbsoluteAngleDegree(430));
     }

@@ -54,7 +54,7 @@ public class RobotContainer {
                                         driverController.getLeftX() * Constants.SwerveConstants.MAX_SPEED
                                 ),
                                 driverController.getRightX() * Constants.SwerveConstants.MAX_SPEED,
-                                false
+                                true
                         ),
                         swerveSubsystem
                 )

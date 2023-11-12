@@ -1,13 +1,15 @@
-package net.ironpulse.armbot.state;
+package net.ironpulse.armbot.test.state;
 
 
+import net.ironpulse.armbot.state.StateMachine;
+import net.ironpulse.armbot.state.Transition;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class StateTest {
+public class StateMachineTest {
     private enum State {
         START, GOAL1, GOAL2
     };
@@ -50,12 +52,18 @@ public class StateTest {
 
     @Test
     void testTransfer2() {
+        stateMachine.transfer(Action.BACK_TO_START);
+        assertEquals(State.GOAL1, stateMachine.getCurrentState());
+    }
+
+    @Test
+    void testTransfer3() {
         stateMachine.transfer(Action.DO_GOAL2);
         assertEquals(State.GOAL2, stateMachine.getCurrentState());
     }
 
     @Test
-    void testTransfer3() {
+    void testTransfer4() {
         stateMachine.transfer(Action.BACK_TO_START);
         assertEquals(State.START, stateMachine.getCurrentState());
     }

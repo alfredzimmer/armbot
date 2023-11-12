@@ -1,5 +1,6 @@
-package net.ironpulse.armbot.maths;
+package net.ironpulse.armbot.test.maths;
 
+import net.ironpulse.armbot.maths.Range;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

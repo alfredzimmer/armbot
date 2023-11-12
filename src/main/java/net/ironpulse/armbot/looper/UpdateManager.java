@@ -1,6 +1,7 @@
 package net.ironpulse.armbot.looper;
 
 import edu.wpi.first.wpilibj.Timer;
+import net.ironpulse.armbot.dashboard.ShuffleBoardRegister;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public class UpdateManager {
     }
 
     public void update() {
+        ShuffleBoardRegister.getInstance().updateEntries();
+
         for (var task : tasks) {
             var timestamp = Timer.getFPGATimestamp();
             var deltaTime = timestamp - lastLoopTime;
