@@ -10,12 +10,21 @@ public class UpdateManager {
 
     private double lastLoopTime;
 
-    public UpdateManager(IUpdatable... tasks) {
+    private final ShuffleBoardRegister shuffleBoardRegister;
+
+    public UpdateManager(ShuffleBoardRegister shuffleBoardRegister, IUpdatable... tasks) {
+        this.shuffleBoardRegister = shuffleBoardRegister;
         this.tasks = List.of(tasks);
     }
 
+    public void init() {
+        for (var task : tasks) {
+            task.init();
+        }
+    }
+
     public void update() {
-        ShuffleBoardRegister.getInstance().updateEntries();
+        shuffleBoardRegister.updateEntries();
 
         for (var task : tasks) {
             var timestamp = Timer.getFPGATimestamp();

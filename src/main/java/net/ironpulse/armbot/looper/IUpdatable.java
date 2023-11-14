@@ -1,6 +1,10 @@
 package net.ironpulse.armbot.looper;
 
 public interface IUpdatable {
+    default void init() {
+
+    }
+
     /**
      * Read data from hardware (e.g. Falcon's position)
      * @param time Current timestamp

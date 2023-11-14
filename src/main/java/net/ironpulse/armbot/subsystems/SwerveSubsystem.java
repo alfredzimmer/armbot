@@ -48,7 +48,9 @@ public class SwerveSubsystem extends SubsystemBase implements IUpdatable {
 
     private final SwerveDriveOdometry swerveDriveOdometry;
 
-    public SwerveSubsystem(IGyro gyro) {
+    private final ShuffleBoardRegister shuffleBoardRegister;
+
+    public SwerveSubsystem(IGyro gyro, ShuffleBoardRegister shuffleBoardRegister) {
         this.gyro = gyro;
         swerveDriveOdometry = new SwerveDriveOdometry(
                 SwerveConstants.SWERVE_DRIVE_KINEMATICS,
@@ -58,13 +60,18 @@ public class SwerveSubsystem extends SubsystemBase implements IUpdatable {
                         swerveModules.get(1).getPosition(),
                 }
         );
+        this.shuffleBoardRegister = shuffleBoardRegister;
+    }
+
+    @Override
+    public void init() {
         for (var swerveModule : swerveModules) {
-            ShuffleBoardRegister.getInstance().addEntry(
+            this.shuffleBoardRegister.addEntry(
                     "Swerve",
                     String.format("Swerve Module #%d Speed", swerveModule.getModuleNumber()),
                     () -> swerveModule.getState().speedMetersPerSecond
             );
-            ShuffleBoardRegister.getInstance().addEntry(
+            this.shuffleBoardRegister.addEntry(
                     "Swerve",
                     String.format("Swerve Module #%d Angle", swerveModule.getModuleNumber()),
                     () -> swerveModule.getState().angle

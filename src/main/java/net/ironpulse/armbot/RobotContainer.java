@@ -11,6 +11,7 @@ import lombok.Getter;
 import net.ironpulse.armbot.Constants.OperatorConstants;
 import net.ironpulse.armbot.commands.Autos;
 import net.ironpulse.armbot.commands.ExampleCommand;
+import net.ironpulse.armbot.dashboard.ShuffleBoardRegister;
 import net.ironpulse.armbot.drivers.gyros.Pigeon2Gyro;
 import net.ironpulse.armbot.looper.UpdateManager;
 import net.ironpulse.armbot.subsystems.ExampleSubsystem;
@@ -27,17 +28,19 @@ import net.ironpulse.armbot.subsystems.SwerveSubsystem;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+    private final ShuffleBoardRegister shuffleBoardRegister = new ShuffleBoardRegister();
     // The robot's subsystems and commands are defined here...
     private final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
     private final SwerveSubsystem swerveSubsystem =
-            new SwerveSubsystem(new Pigeon2Gyro(Constants.SensorConstants.GYRO_PORT));
+            new SwerveSubsystem(new Pigeon2Gyro(Constants.SensorConstants.GYRO_PORT), shuffleBoardRegister);
 
     private final CommandXboxController driverController =
             new CommandXboxController(OperatorConstants.DRIVER_CONTROLLER_PORT);
 
     @Getter
     private final UpdateManager updateManager = new UpdateManager(
-        swerveSubsystem
+            shuffleBoardRegister,
+            swerveSubsystem
     );
     
     
@@ -60,7 +63,6 @@ public class RobotContainer {
                 )
         );
     }
-    
     
     /**
      * Use this method to define your trigger->command mappings. Triggers can be created via the
