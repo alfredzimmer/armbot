@@ -7,18 +7,6 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class ShuffleBoardRegister {
-    private static ShuffleBoardRegister instance;
-
-    private ShuffleBoardRegister() {
-    }
-
-    public static ShuffleBoardRegister getInstance() {
-        if (instance == null) {
-            instance = new ShuffleBoardRegister();
-        }
-        return instance;
-    }
-
     private final List<ShuffleBoardEntry<?>> entries = new ArrayList<>();
 
     public void updateEntries() {
