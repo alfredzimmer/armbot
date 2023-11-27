@@ -1,5 +1,6 @@
 package net.ironpulse.armbot.subsystems;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.*;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -25,7 +26,7 @@ public class SwerveSubsystem extends SubsystemBase implements IUpdatable {
                             .moduleNumber(0)
                             .angleMotorChannel(SwerveConstants.FRONT_LEFT_ANGLE_MOTOR_PORT)
                             .driveMotorChannel(SwerveConstants.FRONT_LEFT_DRIVE_MOTOR_PORT)
-                            .kP(0.5)
+                            .kP(0.01)
                             .kI(0)
                             .kD(0)
                             .build()
@@ -37,7 +38,7 @@ public class SwerveSubsystem extends SubsystemBase implements IUpdatable {
                             .moduleNumber(1)
                             .angleMotorChannel(SwerveConstants.REAR_RIGHT_ANGLE_MOTOR_PORT)
                             .driveMotorChannel(SwerveConstants.REAR_RIGHT_DRIVE_MOTOR_PORT)
-                            .kP(0.5)
+                            .kP(0.01)
                             .kI(0)
                             .kD(0)
                             .build()
@@ -54,7 +55,7 @@ public class SwerveSubsystem extends SubsystemBase implements IUpdatable {
         this.gyro = gyro;
         swerveDriveOdometry = new SwerveDriveOdometry(
                 SwerveConstants.SWERVE_DRIVE_KINEMATICS,
-                gyro.getYaw(),
+                Rotation2d.fromDegrees(0),
                 new SwerveModulePosition[]{
                         swerveModules.get(0).getPosition(),
                         swerveModules.get(1).getPosition(),
@@ -66,16 +67,16 @@ public class SwerveSubsystem extends SubsystemBase implements IUpdatable {
     @Override
     public void init() {
         for (var swerveModule : swerveModules) {
-            this.shuffleBoardRegister.addEntry(
-                    "Swerve",
-                    String.format("Swerve Module #%d Speed", swerveModule.getModuleNumber()),
-                    () -> swerveModule.getState().speedMetersPerSecond
-            );
-            this.shuffleBoardRegister.addEntry(
-                    "Swerve",
-                    String.format("Swerve Module #%d Angle", swerveModule.getModuleNumber()),
-                    () -> swerveModule.getState().angle
-            );
+//            this.shuffleBoardRegister.addEntry(
+//                    "Swerve",
+//                    String.format("Swerve Module #%d Speed", swerveModule.getModuleNumber()),
+//                    () -> swerveModule.getState().speedMetersPerSecond
+//            );
+//            this.shuffleBoardRegister.addEntry(
+//                    "Swerve",
+//                    String.format("Swerve Module #%d Angle", swerveModule.getModuleNumber()),
+//                    () -> swerveModule.getState().angle
+//            );
         }
     }
 
@@ -113,7 +114,7 @@ public class SwerveSubsystem extends SubsystemBase implements IUpdatable {
     @Override
     public void update(double time, double deltaTime) {
         swerveDriveOdometry.update(
-                gyro.getYaw(),
+                Rotation2d.fromDegrees(0),
                 new SwerveModulePosition[] {
                         swerveModules.get(0).getPosition(),
                         swerveModules.get(1).getPosition(),

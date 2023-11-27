@@ -7,9 +7,10 @@ package net.ironpulse.armbot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import net.ironpulse.armbot.looper.IUpdatable;
 
 
-public class ExampleSubsystem extends SubsystemBase {
+public class ExampleSubsystem extends SubsystemBase implements IUpdatable {
     /** Creates a new ExampleSubsystem. */
     public ExampleSubsystem() {}
     

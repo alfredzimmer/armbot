@@ -2,7 +2,6 @@ package net.ironpulse.armbot.drivers.swerve;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -13,7 +12,7 @@ import net.ironpulse.armbot.models.SwerveModuleConfiguration;
 
 public class SJTUMK5Module implements ISwerveModule {
 
-    private final TalonSRX angleMotor;
+    private final TalonFX angleMotor;
 
     private final TalonFX driveMotor;
 
@@ -32,9 +31,9 @@ public class SJTUMK5Module implements ISwerveModule {
         );
         this.moduleNumber = config.getModuleNumber();
 
-        angleMotor = (TalonSRX) CTREFactory.createDefaultTalon(
+        angleMotor = (TalonFX) CTREFactory.createDefaultTalon(
                 config.getAngleMotorChannel(),
-                TalonType.SRX
+                TalonType.FX
         );
     }
 
@@ -49,7 +48,7 @@ public class SJTUMK5Module implements ISwerveModule {
                 )
         );
         angleMotor.set(ControlMode.MotionMagic,
-                Conversions.degreesToFalcon(state.angle.getDegrees(), 1.0, 4096));
+                Conversions.degreesToFalcon(state.angle.getDegrees(), Constants.SwerveConstants.ANGLE_GEAR_RATIO, 4096));
     }
 
     @Override
@@ -87,7 +86,7 @@ public class SJTUMK5Module implements ISwerveModule {
      */
     private Rotation2d getEncoderAngleUnbound() {
         return Rotation2d.fromDegrees(
-                Conversions.falconToDegrees(angleMotor.getSelectedSensorPosition(), 1.0));
+                Conversions.falconToDegrees(angleMotor.getSelectedSensorPosition(), Constants.SwerveConstants.ANGLE_GEAR_RATIO));
     }
 
     private Rotation2d getEncoderAngle() {

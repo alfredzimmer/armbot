@@ -32,7 +32,7 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
     private final SwerveSubsystem swerveSubsystem =
-            new SwerveSubsystem(new Pigeon2Gyro(Constants.SensorConstants.GYRO_PORT), shuffleBoardRegister);
+            new SwerveSubsystem(null, shuffleBoardRegister);
 
     private final CommandXboxController driverController =
             new CommandXboxController(OperatorConstants.DRIVER_CONTROLLER_PORT);
@@ -53,11 +53,11 @@ public class RobotContainer {
                 new RunCommand(
                         () -> swerveSubsystem.drive(
                                 new Translation2d(
-                                        driverController.getLeftY() * Constants.SwerveConstants.MAX_SPEED,
-                                        driverController.getLeftX() * Constants.SwerveConstants.MAX_SPEED
+                                        driverController.getLeftX() * Constants.SwerveConstants.MAX_SPEED,
+                                        driverController.getLeftY() * Constants.SwerveConstants.MAX_SPEED
                                 ),
                                 driverController.getRightX() * Constants.SwerveConstants.MAX_SPEED,
-                                true
+                                false
                         ),
                         swerveSubsystem
                 )

@@ -22,8 +22,8 @@ public final class Constants {
     }
 
     public static class SwerveConstants {
-        public static final int FRONT_LEFT_DRIVE_MOTOR_PORT = 0;
-        public static final int FRONT_LEFT_ANGLE_MOTOR_PORT = 1;
+        public static final int FRONT_LEFT_DRIVE_MOTOR_PORT = 1;
+        public static final int FRONT_LEFT_ANGLE_MOTOR_PORT = 0;
 
         public static final int REAR_RIGHT_DRIVE_MOTOR_PORT = 2;
         public static final int REAR_RIGHT_ANGLE_MOTOR_PORT = 3;
@@ -40,9 +40,10 @@ public final class Constants {
             );
 
         public static final double WHEEL_CIRCUMFERENCE_METERS = 0.1;
-        public static final double DRIVE_GEAR_RATIO = 6.7;
+        public static final double DRIVE_GEAR_RATIO = 6.75;
+        public static final double ANGLE_GEAR_RATIO = 21.42;
 
-        public static final double MAX_SPEED = 5;
+        public static final double MAX_SPEED = 0.5;
     }
 
     public static class SensorConstants {
