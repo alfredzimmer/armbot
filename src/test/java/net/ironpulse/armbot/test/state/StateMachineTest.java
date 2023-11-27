@@ -12,11 +12,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class StateMachineTest {
     private enum State {
         START, GOAL1, GOAL2
-    };
+    }
 
     private enum Action {
         DO_GOAL1, DO_GOAL2, BACK_TO_START
-    };
+    }
 
     private static StateMachine stateMachine;
 

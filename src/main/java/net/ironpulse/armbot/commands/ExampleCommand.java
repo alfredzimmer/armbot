@@ -11,8 +11,7 @@ import net.ironpulse.armbot.subsystems.ExampleSubsystem;
 
 
 /** An example command that uses an example subsystem. */
-public class ExampleCommand extends CommandBase
-{
+public class ExampleCommand extends CommandBase {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField" })
     private final ExampleSubsystem subsystem;
     
@@ -22,8 +21,7 @@ public class ExampleCommand extends CommandBase
      *
      * @param subsystem The subsystem used by this command.
      */
-    public ExampleCommand(ExampleSubsystem subsystem)
-    {
+    public ExampleCommand(ExampleSubsystem subsystem) {
         this.subsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem);
@@ -37,18 +35,19 @@ public class ExampleCommand extends CommandBase
     
     // Called every time the scheduler runs while the command is scheduled.
     @Override
-    public void execute() {}
+    public void execute() {
+        subsystem.exampleMethodCommand();
+    }
     
     
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {}
-    
-    
+
+
     // Returns true when the command should end.
     @Override
-    public boolean isFinished()
-    {
+    public boolean isFinished() {
         return false;
     }
 }
