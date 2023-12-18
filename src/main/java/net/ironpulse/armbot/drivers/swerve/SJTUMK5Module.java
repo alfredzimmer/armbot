@@ -31,9 +31,14 @@ public class SJTUMK5Module implements ISwerveModule {
         );
         this.moduleNumber = config.getModuleNumber();
 
-        angleMotor = (TalonFX) CTREFactory.createDefaultTalon(
+        angleMotor = (TalonFX) CTREFactory.createTalon(
                 config.getAngleMotorChannel(),
-                TalonType.FX
+                TalonType.FX,
+                talon -> {
+                    talon.configMotionAcceleration(50000);
+                    talon.configMotionCruiseVelocity(30000);
+                    return talon;
+                }
         );
     }
 
